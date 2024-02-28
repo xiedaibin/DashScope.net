@@ -397,3 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .idea
+/samples/DashScope.KernelMemory.Sample/appsettings.secrets.json
+/samples/SK-DashScope.Sample/appsettings.secrets.json
