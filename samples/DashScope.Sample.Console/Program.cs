@@ -24,7 +24,31 @@ while (true)
     }
     Console.ForegroundColor = ConsoleColor.White;
     Console.Write("Bot:");
-    var result = await client.GenerationAsync(new CompletionRequest()
+    //var result = await client.GenerationAsync(new CompletionRequest()
+    //{
+    //    Input =
+    //    {
+    //         Messages = new List<Message>()
+    //         {
+    //              new Message()
+    //              {
+    //                   Role = "user",
+    //                   Content = userInput
+    //              }
+    //         }
+    //    }
+    //});
+
+    //if (result.IsTextResponse)
+    //{
+    //    Console.WriteLine(result.Output.Text);
+    //}
+    //else
+    //{
+    //    Console.WriteLine(result.Output.Choices![0].Message.Content);
+    //}
+
+    var results = client.GenerationStreamAsync(new CompletionRequest()
     {
         Input =
         {
@@ -39,12 +63,15 @@ while (true)
         }
     });
 
-    if (result.IsTextResponse)
+    await foreach (var result in results)
     {
-        Console.WriteLine(result.Output.Text);
-    }
-    else
-    {
-        Console.WriteLine(result.Output.Choices![0].Message.Content);
+        if (result.IsTextResponse)
+        {
+            Console.WriteLine(result.Output.Text);
+        }
+        else
+        {
+            Console.WriteLine(result.Output.Choices![0].Message.Content);
+        }
     }
 }
